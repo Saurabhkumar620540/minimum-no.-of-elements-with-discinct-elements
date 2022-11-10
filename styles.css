@@ -2,6 +2,9 @@ body{
     text-align: center;
     background-color: azure;
 }
+.array{
+    display: inline-block;
+}
 input{
     width: 40%;
   padding: 12px 20px;
@@ -70,6 +73,32 @@ button{
       padding: 10px 25px;
       font-size: 10px;
       border-radius: 7px;
+    }
+
+}
+@media ( max-width:1200px){
+    body{
+        /* text-align:start; */
+        
+    }
+    h1{
+        font-size: 30px;
+    }
+    input{
+        padding: 10px 18px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 7px;
+    }
+    input[type="text"]
+    {
+        font-size:18px;
+    }
+    button{
+      padding: 13px 28px;
+      font-size: 13px;
+      border-radius: 9px;
     }
 
 }
