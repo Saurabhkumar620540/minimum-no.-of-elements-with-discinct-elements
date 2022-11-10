@@ -3,16 +3,21 @@ const expBtn = document.getElementById('explanation')
 // onclick="document.write(subset(arr, arr.length))
 
 subBtn.addEventListener('click', () => {
-    const sz = document.getElementById('noofels')
+    if(checkInput()==true){
+        const sz = document.getElementById('noofels')
     const els = document.getElementById('els')
-    let arr = els.value.split(' ').map(strDigit => { return parseInt(strDigit) })
-    let size = parseInt(sz.value)
-    // console.log("Array :");
-    // console.log(arr);
-    // console.log("Size :");
-    // console.log(size);
+    let arr = els.value.split(',').map(strDigit => { return parseInt(strDigit) })
+    let size = parseInt(sz.value);
     document.getElementById("explanationP").innerHTML=arr;
     document.getElementById("answer").innerHTML="The minimum number of subset with distinct elements is: "+ subset(arr, arr.length);
+    }
+    
+    // const sz = document.getElementById('noofels')
+    // const els = document.getElementById('els')
+    // let arr = els.value.split(',').map(strDigit => { return parseInt(strDigit) })
+    // let size = parseInt(sz.value);
+    // document.getElementById("explanationP").innerHTML=arr;
+    // document.getElementById("answer").innerHTML="The minimum number of subset with distinct elements is: "+ subset(arr, arr.length);
 
 })
 // expBtn.addEventListener('click',()=>{
@@ -37,7 +42,7 @@ expBtn.addEventListener('click',async ()=>{
     const el=document.getElementById("subsetDiv")
     el.innerHTML=''
     const len=Number.parseInt(document.getElementById('noofels').value)
-    let arr = els.value.split(' ').map(strDigit => { return parseInt(strDigit) }).slice(0,len)
+    let arr = els.value.split(',').map(strDigit => { return parseInt(strDigit) }).slice(0,len)
     let r = ''
     document.getElementById("explanationP").innerHTML=arr;
 
@@ -59,14 +64,16 @@ expBtn.addEventListener('click',async ()=>{
         }
         await new Promise((res,rej)=>{
             setTimeout(() => {
-                el.innerHTML=el.innerHTML+' }'
+                el.innerHTML=el.innerHTML+' } '
                 res()
             }, 1000);
         })
     }
+    document.getElementById("explanation").disabled=false;
 
 });
-        function subset(arr, n) {
+        
+function subset(arr, n) {
         var mp = {};
         for (var i = 0; i < n; i++) {
           if (mp.hasOwnProperty(arr[i])) {
@@ -165,4 +172,72 @@ expBtn.addEventListener('click',async ()=>{
               document.getElementById("subsetDiv").innerHTML=r;
           }
           return 0;
+      }
+
+    //   function validateform(){  
+    //     var noOfels=document.getElementById('noofels').value;  
+    //     var elements=document.getElementById('els').value;  
+          
+    //     if (noOfels==null || noOfels==""){  
+    //       alert("Name can't be blank");  
+    //       return false;  
+    //     }else if(elements==null || elements==""){  
+    //       alert("Password must be at least 6 characters long.");  
+    //       return false;  
+    //       }  
+    //     }  
+
+    function checkInput() {
+        let input1 = document.getElementById("noofels").value;
+        let input2 = document.getElementById("els").value;
+        // let input3 = document.getElementById("value").value;
+      
+        // if(isNaN(input3)){
+        //   document.getElementById("value").style.border = "2px solid red";
+        // }
+        // else{
+        //   document.getElementById("value").style.removeProperty('border');
+        // }
+      
+        // https://www.w3schools.com/jsref/jsref_obj_regexp.asp
+      
+        // n+	Matches any string that contains at least one n
+        // n*	Matches any string that contains zero or more occurrences of n
+        // n?	Matches any string that contains zero or one occurrences of n
+        // n{X}	Matches any string that contains a sequence of X n's
+        // n{X,Y}	Matches any string that contains a sequence of X to Y n's
+        // n{X,}	Matches any string that contains a sequence of at least X n's
+        // n$	Matches any string with n at the end of it
+        // ^n	Matches any string with n at the beginning of it
+        // ?=n	Matches any string that is followed by a specific string n
+        // ?!n	Matches any string that is not followed by a specific string n
+      
+        reg = /^(([0-9](,)?)*)+$/;
+        let result_1 = reg.test(input1);
+        let result_2 = reg.test(input2);
+        if (result_1 && result_2) {
+          document.getElementById("noofels").style.removeProperty("border");
+          document.getElementById("els").style.removeProperty("border");
+          console.log("Strings correct");
+          return true;
+        } else if (!result_1 && !result_2) {
+          document.getElementById("noofels").style.border = "2px solid red";
+          document.getElementById("els").style.border = "2px solid red";
+          setTimeout(function () {
+            // alert("input1 and input2 wrong");
+          }, 500);
+          return false;
+        } else if (!result_1) {
+          document.getElementById("noofels").style.border = "2px solid red";
+          setTimeout(function () {
+            // alert("input1 wrong");
+          }, 500);
+          return false;
+        } else if (!result_2) {
+          document.getElementById("noofels").style.border = "2px solid red";
+          setTimeout(function () {
+            // alert("input2 wrong");
+          }, 500);
+          return false;
+        }
       }
